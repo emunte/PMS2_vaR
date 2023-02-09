@@ -1,0 +1,6 @@
+#tools
+samtools: "/home/emunte/tools/samtools-0.1.19/samtools"
+picardJar: "/home/emunte/tools/picard.v.2.26.4.jar"
+bwa: "/home/emunte/tools/bwa-0.7.12/bwa"
+vardict: "/home/emunte/tools/VarDictJava/build/install/VarDict"
+
