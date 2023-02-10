@@ -27,7 +27,7 @@ git clone https://github.com/emunte/PMS2_vaR.git
 4. Launch PMS2_vaR
 ```
 cd PMS2_vaR
-Rscript runPMS2_vaR.R [-t tools_file] [-b bam_txt_files] [-r reference_genome] [-v vardictjava]
+Rscript runPMS2_vaR.R [-t tools_file] [-b bam.txt_path] [-r reference_genome_path] [-v vardictjava_path]
 ```
 
 ### Output ###
