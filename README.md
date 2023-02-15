@@ -17,7 +17,6 @@ The following tools should be properly installed.
 
 ```
 git clone https://github.com/emunte/PMS2_vaR.git
-
 ```
 
 2. **Configure tools.yaml**
