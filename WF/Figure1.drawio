@@ -1,10 +1,10 @@
-<mxfile host="app.diagrams.net" modified="2023-12-15T06:52:10.691Z" agent="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/119.0" etag="sdGs-CnViSwgfkuPGlQ3" version="22.1.9" type="github">
+<mxfile host="app.diagrams.net" modified="2023-12-15T06:57:10.239Z" agent="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/119.0" etag="3yGVv4ljDJ3TWZEreC8_" version="22.1.9" type="github">
   <diagram name="Page-1" id="ag188vEUX45JVOgcmbsB">
     <mxGraphModel dx="1504" dy="1937" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="DD6BnUzv3AWOmGqipu_t-16" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;&lt;span class=&quot;TrackedChange SCXW120247527 BCX2&quot;&gt;&lt;/span&gt;&lt;span class=&quot;TrackedChange SCXW120247527 BCX2&quot;&gt;&lt;span class=&quot;TextRun Underlined SCXW120247527 BCX2&quot; lang=&quot;EN-US&quot; style=&quot;font-style: italic; text-decoration: underline; line-height: 32px; font-family: Arial, &amp;quot;Arial_EmbeddedFont&amp;quot;, &amp;quot;Arial_MSFontService&amp;quot;, sans-serif;&quot; data-contrast=&quot;auto&quot;&gt;&lt;span class=&quot;NormalTextRun TrackChangeDeleteHighlight SCXW120247527 BCX2&quot;&gt;Run_PMS2&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;TrackedChange SCXW120247527 BCX2&quot;&gt;&lt;span class=&quot;TextRun Underlined SCXW120247527 BCX2&quot; lang=&quot;EN-US&quot; style=&quot;font-style: italic; text-decoration: underline; line-height: 32px; font-family: Arial, &amp;quot;Arial_EmbeddedFont&amp;quot;, &amp;quot;Arial_MSFontService&amp;quot;, sans-serif;&quot; data-contrast=&quot;auto&quot;&gt;&lt;span class=&quot;NormalTextRun TrackChangeDeleteHighlight SCXW120247527 BCX2&quot;&gt;_vaR&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/font&gt;" style="swimlane;whiteSpace=wrap;html=1;startSize=23;fillColor=#b4a8b0;" parent="1" vertex="1">
+        <mxCell id="DD6BnUzv3AWOmGqipu_t-16" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;&lt;span class=&quot;TrackedChange SCXW120247527 BCX2&quot;&gt;&lt;/span&gt;&lt;span class=&quot;TrackedChange SCXW120247527 BCX2&quot;&gt;&lt;span class=&quot;TextRun Underlined SCXW120247527 BCX2&quot; lang=&quot;EN-US&quot; style=&quot;font-style: italic; text-decoration: underline; line-height: 32px; font-family: Arial, &amp;quot;Arial_EmbeddedFont&amp;quot;, &amp;quot;Arial_MSFontService&amp;quot;, sans-serif;&quot; data-contrast=&quot;auto&quot;&gt;&lt;span class=&quot;NormalTextRun TrackChangeDeleteHighlight SCXW120247527 BCX2&quot;&gt;runPMS2&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;TrackedChange SCXW120247527 BCX2&quot;&gt;&lt;span class=&quot;TextRun Underlined SCXW120247527 BCX2&quot; lang=&quot;EN-US&quot; style=&quot;font-style: italic; text-decoration: underline; line-height: 32px; font-family: Arial, &amp;quot;Arial_EmbeddedFont&amp;quot;, &amp;quot;Arial_MSFontService&amp;quot;, sans-serif;&quot; data-contrast=&quot;auto&quot;&gt;&lt;span class=&quot;NormalTextRun TrackChangeDeleteHighlight SCXW120247527 BCX2&quot;&gt;_vaR&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/font&gt;" style="swimlane;whiteSpace=wrap;html=1;startSize=23;fillColor=#b4a8b0;" parent="1" vertex="1">
           <mxGeometry x="200" y="160" width="513" height="410" as="geometry" />
         </mxCell>
         <mxCell id="DD6BnUzv3AWOmGqipu_t-54" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Bam preprocessing&lt;/font&gt;" style="swimlane;whiteSpace=wrap;html=1;startSize=23;container=0;fillColor=#CDC0D4;" parent="DD6BnUzv3AWOmGqipu_t-16" vertex="1">
@@ -169,7 +169,7 @@
         <mxCell id="DD6BnUzv3AWOmGqipu_t-93" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="DD6BnUzv3AWOmGqipu_t-1" target="DD6BnUzv3AWOmGqipu_t-87" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="DD6BnUzv3AWOmGqipu_t-1" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;Modify_reference&lt;/font&gt;" style="swimlane;whiteSpace=wrap;html=1;startSize=23;fillColor=#b4a8b0;" parent="1" vertex="1">
+        <mxCell id="DD6BnUzv3AWOmGqipu_t-1" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;modify_reference&lt;/font&gt;" style="swimlane;whiteSpace=wrap;html=1;startSize=23;fillColor=#b4a8b0;" parent="1" vertex="1">
           <mxGeometry x="199" y="-80" width="231" height="100" as="geometry" />
         </mxCell>
         <mxCell id="DD6BnUzv3AWOmGqipu_t-3" value="" style="endArrow=none;html=1;rounded=0;startArrow=none;" parent="DD6BnUzv3AWOmGqipu_t-1" source="DD6BnUzv3AWOmGqipu_t-2" edge="1">
@@ -209,6 +209,9 @@
             </Array>
           </mxGeometry>
         </mxCell>
+        <mxCell id="VpbdpCBQVAK6c9VsEZkQ-12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="DD6BnUzv3AWOmGqipu_t-84" target="DD6BnUzv3AWOmGqipu_t-86">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
         <mxCell id="DD6BnUzv3AWOmGqipu_t-84" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;Classified variants csv&lt;/div&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;size=21;" parent="1" vertex="1">
           <mxGeometry x="504" y="40" width="60" height="80" as="geometry" />
         </mxCell>
@@ -217,7 +220,7 @@
             <mxPoint x="608" y="160" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="DD6BnUzv3AWOmGqipu_t-85" value="&lt;div style=&quot;font-size: 14px;&quot;&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;tools&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;.yaml&lt;/font&gt;&lt;/div&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;size=21;" parent="1" vertex="1">
+        <mxCell id="DD6BnUzv3AWOmGqipu_t-85" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;tools&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;.yaml&lt;/font&gt;&lt;/div&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;size=21;" parent="1" vertex="1">
           <mxGeometry x="578" y="40" width="60" height="80" as="geometry" />
         </mxCell>
         <mxCell id="DD6BnUzv3AWOmGqipu_t-116" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="DD6BnUzv3AWOmGqipu_t-86" edge="1">
@@ -225,7 +228,7 @@
             <mxPoint x="680" y="160" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="DD6BnUzv3AWOmGqipu_t-86" value="&lt;div style=&quot;font-size: 14px;&quot;&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;vardict&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;Java&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;params&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;.yaml&lt;/font&gt;&lt;br&gt;&lt;/div&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;size=21;" parent="1" vertex="1">
+        <mxCell id="DD6BnUzv3AWOmGqipu_t-86" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 13px;&quot;&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;VarDict&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 13px;&quot;&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;Java&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 13px;&quot;&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;params&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 13px;&quot;&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;.yaml&lt;/font&gt;&lt;br&gt;&lt;/div&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;size=21;" parent="1" vertex="1">
           <mxGeometry x="650" y="40" width="60" height="80" as="geometry" />
         </mxCell>
         <mxCell id="DD6BnUzv3AWOmGqipu_t-111" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="DD6BnUzv3AWOmGqipu_t-87" edge="1">
@@ -237,22 +240,22 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="DD6BnUzv3AWOmGqipu_t-87" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 13.5px;&quot;&gt;modified genome.fa&lt;br&gt;&lt;/div&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;size=21;" parent="1" vertex="1">
+        <mxCell id="DD6BnUzv3AWOmGqipu_t-87" value="&lt;div style=&quot;font-size: 13px;&quot;&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 13px;&quot;&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;modified genome.fa&lt;font style=&quot;font-size: 13px;&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/font&gt;&lt;/div&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;size=21;" parent="1" vertex="1">
           <mxGeometry x="266.41" y="40" width="60" height="80" as="geometry" />
         </mxCell>
         <mxCell id="DD6BnUzv3AWOmGqipu_t-92" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.405;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="DD6BnUzv3AWOmGqipu_t-88" target="DD6BnUzv3AWOmGqipu_t-1" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="DD6BnUzv3AWOmGqipu_t-88" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;reference genome&lt;/font&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;size=21;" parent="1" vertex="1">
+        <mxCell id="DD6BnUzv3AWOmGqipu_t-88" value="&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;reference genome&lt;/font&gt;&lt;/div&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;size=21;" parent="1" vertex="1">
           <mxGeometry x="206" y="-196" width="60" height="80" as="geometry" />
         </mxCell>
         <mxCell id="DD6BnUzv3AWOmGqipu_t-91" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="DD6BnUzv3AWOmGqipu_t-89" target="DD6BnUzv3AWOmGqipu_t-1" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="DD6BnUzv3AWOmGqipu_t-89" value="&lt;div&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;PMS2CL&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;.fa&lt;/font&gt;&lt;/div&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;size=21;" parent="1" vertex="1">
+        <mxCell id="DD6BnUzv3AWOmGqipu_t-89" value="&lt;div&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;PMS2CL&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;.fa&lt;/font&gt;&lt;/div&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;size=21;" parent="1" vertex="1">
           <mxGeometry x="317" y="-196" width="60" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="DD6BnUzv3AWOmGqipu_t-117" value="&lt;i&gt;PMS2&lt;/i&gt; and &lt;i&gt;PMS2CL&lt;/i&gt; variants.txt" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;size=21;" parent="1" vertex="1">
+        <mxCell id="DD6BnUzv3AWOmGqipu_t-117" value="&lt;div&gt;&lt;i&gt;&lt;br&gt;&lt;/i&gt;&lt;/div&gt;&lt;div&gt;&lt;i&gt;PMS2&lt;/i&gt; and &lt;i&gt;PMS2CL&lt;/i&gt; variants.txt&lt;/div&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;size=21;" parent="1" vertex="1">
           <mxGeometry x="450" y="580" width="60" height="80" as="geometry" />
         </mxCell>
         <mxCell id="DD6BnUzv3AWOmGqipu_t-141" value="&lt;i&gt;PMS2CL&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e9b96e;" parent="1" vertex="1">
