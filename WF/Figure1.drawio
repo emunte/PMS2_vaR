@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-12-15T06:58:13.699Z" agent="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/119.0" etag="MBI0TMB7bFF49NMxKGX2" version="22.1.9" type="github">
+<mxfile host="app.diagrams.net" modified="2023-12-15T06:59:49.233Z" agent="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/119.0" etag="BeCxy16Km4urUE6TThKf" version="22.1.9" type="github">
   <diagram name="Page-1" id="ag188vEUX45JVOgcmbsB">
     <mxGraphModel dx="1504" dy="1937" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -167,7 +167,12 @@
           <mxGeometry x="82.4037037037037" y="106" width="7.4074074074074066" height="5" as="geometry" />
         </mxCell>
         <mxCell id="DD6BnUzv3AWOmGqipu_t-93" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="DD6BnUzv3AWOmGqipu_t-1" target="DD6BnUzv3AWOmGqipu_t-87" edge="1">
-          <mxGeometry relative="1" as="geometry" />
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="296" y="30" />
+              <mxPoint x="296" y="30" />
+            </Array>
+          </mxGeometry>
         </mxCell>
         <mxCell id="DD6BnUzv3AWOmGqipu_t-1" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;modify_reference&lt;/font&gt;" style="swimlane;whiteSpace=wrap;html=1;startSize=23;fillColor=#b4a8b0;" parent="1" vertex="1">
           <mxGeometry x="199" y="-80" width="231" height="100" as="geometry" />
@@ -438,8 +443,8 @@
         <mxCell id="VpbdpCBQVAK6c9VsEZkQ-3" value="..." style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="VHnpR2gjYTXLsZdLmZMY-4">
           <mxGeometry x="306" y="190" width="30" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="DD6BnUzv3AWOmGqipu_t-336" value="&lt;div align=&quot;left&quot;&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;- VarDictjava&lt;/font&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="VHnpR2gjYTXLsZdLmZMY-4" vertex="1">
-          <mxGeometry x="460" y="491" width="100" height="30" as="geometry" />
+        <mxCell id="DD6BnUzv3AWOmGqipu_t-336" value="&lt;div align=&quot;left&quot;&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;- VarDictJava&lt;/font&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="VHnpR2gjYTXLsZdLmZMY-4" vertex="1">
+          <mxGeometry x="460" y="491" width="110" height="30" as="geometry" />
         </mxCell>
         <mxCell id="DD6BnUzv3AWOmGqipu_t-78" value="&lt;div align=&quot;left&quot; style=&quot;font-size: 14px;&quot;&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;- Mutalyzer&lt;/font&gt;&lt;/div&gt;&lt;div align=&quot;left&quot; style=&quot;font-size: 14px;&quot;&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;- Variant classification&amp;nbsp;&lt;/font&gt;&lt;/div&gt;&lt;div align=&quot;left&quot; style=&quot;font-size: 14px;&quot;&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;from DB&lt;/font&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="VHnpR2gjYTXLsZdLmZMY-4" vertex="1">
           <mxGeometry x="450" y="585.75" width="160" height="60" as="geometry" />
