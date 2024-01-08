@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-01-08T08:55:08.222Z" agent="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/119.0" etag="rtSYro-eY1jCvS8zc-6d" version="22.1.17" type="github">
+<mxfile host="app.diagrams.net" modified="2024-01-08T08:55:32.058Z" agent="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/119.0" etag="OguAtyH9c64bEGrj5xyD" version="22.1.17" type="github">
   <diagram name="Page-1" id="Qz9lvQuuYSKgR6KqhHCB">
     <mxGraphModel dx="1504" dy="837" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -138,8 +138,8 @@
         <mxCell id="L2tWmQwmKj26mh4VTE-m-86" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="L2tWmQwmKj26mh4VTE-m-49" target="L2tWmQwmKj26mh4VTE-m-85" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="L2tWmQwmKj26mh4VTE-m-49" value="LR-PCR" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=13;" parent="1" vertex="1">
-          <mxGeometry x="720" y="550" width="80" height="20" as="geometry" />
+        <mxCell id="L2tWmQwmKj26mh4VTE-m-49" value="LR-PCR" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=14;" parent="1" vertex="1">
+          <mxGeometry x="720" y="545" width="80" height="30" as="geometry" />
         </mxCell>
         <mxCell id="L2tWmQwmKj26mh4VTE-m-50" value="Yes" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="520" y="535" width="40" height="30" as="geometry" />
