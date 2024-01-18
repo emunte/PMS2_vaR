@@ -23,8 +23,15 @@ vus <- vars.class %>%
   dplyr::mutate(ID.vars = stringr::str_replace(ID.vars, " ", ""))
 
 
+classification <- list(ben = ben,
+                       lben = lben,
+                       vus = vus,
+                       lpat = lpat,
+                       pat = pat)
+
+
 # Paralogous variant list
-vars.paralogous <- read.csv("./data/variants_pms2CL.csv") %>% as.matrix()
+vars.paralogous <- read.csv("./data/variants_pms2CL.csv", header = FALSE) %>% as.matrix()
 
 # BEd
 bed.file <-  read.csv2("./data/PMS2_bed_file.bed", sep="\t", header = TRUE)
