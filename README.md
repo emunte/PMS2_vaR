@@ -10,23 +10,30 @@ The following tools should be properly installed.
 - bwa (0.7.17)
 - vardictJava: https://github.com/AstraZeneca-NGS/VarDictJava
 
+Also, R/Bioconductor should be installed with at least these packages: Biostrings, dplyr, httr, jsonlite, optparse, purrr, Rsamtools, stringr, universalmotif, VariantAnnotation, vcfR
 
 ### How to use ###
 
-1. Get Code
+1. **Get Code**
 
 ```
 git clone https://github.com/emunte/PMS2_vaR.git
 ```
 
 2. **Configure tools.yaml**
-3. **Configure vardicjavaParams.yaml**
-
-
-4. Launch PMS2_vaR
+3. **Obtain a modified reference genome file without** ***PMS2CL*** **sequence** . This step only needs to be done once.
 ```
 cd PMS2_vaR
-Rscript runPMS2_vaR.R [-t tools_file] [-b bam.txt_path] [-r reference_genome_path] [-v vardictjava_path]
+Rscript modify_reference.R [-r --reference reference_genome_path] [-p --pms2CLfasta  full_path_to_PMS2CL_fasta_file] [-o --outputdir path_to_output_directory]
+```
+
+4. **Configure vardicjavaParams.yaml**
+
+
+5. **Launch PMS2_vaR**
+```
+cd PMS2_vaR
+Rscript runPMS2_vaR.R [-t tools_file] [-b bam.txt_path] [-r modified_reference_genome_path] [-v vardictjava_path] [-n --samplesname samplesname] [-o --outputdir path_to_output_directory]
 ```
 
 ### Output ###
