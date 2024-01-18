@@ -4,6 +4,18 @@
 #libs
 library(yaml)
 library("optparse")
+library(dplyr)
+library(stringr)
+library(vcfR)
+library(GenomicRanges)
+################################################################################
+
+library(jsonlite)
+library(httr)
+library(VariantAnnotation)
+library(stringr)
+library(purrr)
+library(Rsamtools)
 # Check runPMS2_vaR.R is being called from PMS2_vaR folder
 
 if (length(list.files(pattern = "runPMS2_vaR.R"))== 0){
@@ -21,7 +33,7 @@ if (length(list.files(pattern = "runPMS2_vaR.R"))== 0){
    make_option(c("-r", "--reference"), type="character", default="",
                help="Full path to reference modified file (fa), with no PMS2CL sequence.", metavar="character"),
    make_option(c("-v", "--vardictjava"), type="character", default="params/vardictjavaParams.yaml",
-               help="Full path to reference file (fa).", metavar="character"),
+               help="Full path to vardict java params", metavar="character"),
    make_option(c("-o", "--outputdir"), type="character", default="",
                help="Output directory to store results", metavar="character"),
    make_option(c("-n", "--samplesname"), type="character", default="",
@@ -35,23 +47,32 @@ args <- parse_args(opt_parser);
 tools <- yaml.load_file(args$tools)
 vardict <- yaml.load_file(args$vardictjava)
 
+#Checks
+assertthat::assert_that(file.exists(args$reference), msg="Please enter a reference file")
+assertthat::assert_that(stringr::str_detect(args$reference, ".fa"), msg="Please enter a valid reference file (fasta format)")
+
+
 #create logs/output folder if not exists
-dir.create("logs", showWarnings = F)
-dir.create("output", showWarnings = F)
+#dir.create("logs", showWarnings = F)
+#dir.create("output", showWarnings = F)
 
 
 #Load functions and variables
 source(file.path(getwd(), "functions/PMS2_vaR_functions.R"))
 source(file.path(getwd(), "utils/ROIS.R"))
-
+source(file.path(getwd(), "utils/classification.R"))
 
 #Execute the pipeline
 output.samples.dir <- file.path(args$outputdir, paste(args$samplesname, Sys.Date(), sep="_"))
-
+print(output.samples.dir)
+message("Re-alignment")
 pms2_realignment(args, tools, vardict, output.samples.dir)
+message("zip tabix function")
 zip_tabix(output.samples.dir, "*VARDICT.vcf$")
+message("convert to txt file")
 convert_vcf_txt(resultsDir = output.samples.dir, vcf.pattern = "*VARDICT.vcf.gz$", rng, args)
-merge_pipelines(resultsDir = output.samples.dir)
+message("merge pipelines")
+merge_pipelines(resultsDir = output.samples.dir, vars.paralogous=vars.paralogous, classification=classification)
 
 
 
