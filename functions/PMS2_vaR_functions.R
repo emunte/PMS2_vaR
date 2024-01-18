@@ -58,7 +58,7 @@ for (b in seq_len(nrow(bams))){
   print(cmd2); system(cmd2)
 
   ### 3. Realign with bwa mem
-  cmd3 <- paste(tools$bwa,  "mem -t 1", fasta, r1, r2, ">", sam)
+  cmd3 <- paste(tools$bwa,  "mem -t 1", args$reference, r1, r2, ">", sam)
   print(cmd3); system(cmd3)
 
   ### 4. Convert sam to bam
@@ -81,7 +81,7 @@ for (b in seq_len(nrow(bams))){
   # 6. Variant calling with VardictJava
 
   cmd7 <- paste (paste(paste0(tools$vardict,  "/bin/VarDict"),
-                   "-G", fasta,
+                   "-G", args$reference,
                    "-X", vardict$X,
                    "-q", vardict$phred_score,
                    "-m", vardict$missmatches,
@@ -129,7 +129,7 @@ for (b in seq_len(nrow(bams))){
 
   ## 3. Realign with bwa mem
   ### 3.1 Outside E11
-  cmd3 <- paste(tools$bwa,  "mem -t 1", fasta, r1.E11, r2.E11, ">", sam.E11)
+  cmd3 <- paste(tools$bwa,  "mem -t 1", args$reference, r1.E11, r2.E11, ">", sam.E11)
   print(cmd3); system(cmd3)
 
   ### 3.2 Inside E11 -> not necessary
@@ -148,7 +148,7 @@ for (b in seq_len(nrow(bams))){
   ## 6. Sort + index
   cmd5 <- paste (tools$samtools , "sort", third.bam.E11, sorted.bam.E11 )
   print(cmd5); system(cmd5)
-  cmd6 <- paste (samtools , "index", paste0(sorted.bam.E11, ".bam"))
+  cmd6 <- paste (tools$samtools , "index", paste0(sorted.bam.E11, ".bam"))
   print(cmd6); system(cmd6)
 
   #remove intermediate files
@@ -164,7 +164,7 @@ for (b in seq_len(nrow(bams))){
   ## 7. Variant calling with VardictJava
 
   cmd7 <- paste (paste(paste0(tools$vardict,  "/bin/VarDict"),
-                       "-G", fasta,
+                       "-G", args$reference,
                        "-X", vardict$X,
                        "-q", vardict$phred_score,
                        "-m", vardict$missmatches,
@@ -207,40 +207,46 @@ zip_tabix <- function(resultsDir, patro){
 
 convert_vcf_txt <- function(resultsDir, vcf.pattern, rng, args){
   files <- list.files (resultsDir, pattern= vcf.pattern, recursive= TRUE, full.names = TRUE)
-  samples.name <- bams[,1] %>%
-    as.character() %>%
-    basename() %>%
-    stringr::str_replace(".bam", "") %>%
-    rep(each=2)
-
+  # bams <- read.table(args$bamTxt)$V1
+  # samples.name <- bams[,1] %>%
+  #   as.character() %>%
+  #   basename() %>%
+  #   stringr::str_replace(".bam", "") %>%
+  #   rep(each=2)
+samples.name <- basename(files) %>% stringr::str_replace("freq.+", "")
   for (f in seq_len(length(files))){ #mirem cada fitxer dins de files
     sample.name <- samples.name[f]
-    tab <- TabixFile(files[f])
-    #Read the complete vcf
-    vcf <- read.vcfR(tab$path)
+    print(sample.name)
+    print(f)
+    tab <- Rsamtools::TabixFile(files[f])
+    #Read the complete vcf``
+    vcf <- vcfR::read.vcfR(tab$path)
     # Read vcf only with inROI
-    vcf.rng <- readVcf(tab, "hg19", param=rng)
-    vcf.rng.exons <- readVcf(tab, "hg19", param=bedGR)
+    vcf.rng <- VariantAnnotation::readVcf(tab, "hg19", param=rng)
+    vcf.rng.exons <- VariantAnnotation::readVcf(tab, "hg19", param=bedGR)
     exons.df <- data.frame(ID= names(vcf.rng.exons@rowRanges),
-                           exon = vcf.rng.exons@rowRanges$paramRangeID %>% as.character())
+                           exon = vcf.rng.exons@rowRanges$paramRangeID %>% as.character()) %>%
+      dplyr::group_by(ID) %>% dplyr::slice (1)
 
-    writeVcf(vcf.rng, file.path(dirname(files[f]), "rng_vardict.vcf"))
-    vcf.rng <- read.vcfR(file.path(dirname(files[f]), "rng_vardict.vcf"))
-
+    VariantAnnotation::writeVcf(vcf.rng, file.path(dirname(files[f]), "rng_vardict.vcf"))
+    vcf.rng <- vcfR::read.vcfR(file.path(dirname(files[f]), "rng_vardict.vcf"))
+    myID <- getID(vcf.rng)
+    length(unique(myID, incomparables = NA)) == length(myID)
+    vcf.rng <- vcf.rng[!duplicated(myID, incomparables = NA), ]
     #tidy vcfs and make a dataframe
     #a) all vcf
-    vcf.tidy <- vcfR2tidy(vcf, single_frame = TRUE)
+    vcf.tidy <- vcfR::vcfR2tidy(vcf, single_frame = TRUE)
     vcf.df <- as.data.frame(vcf.tidy$dat) %>%
       dplyr::mutate(ID= paste0(CHROM, ":", POS, "_", REF, "/", ALT))
     #b) in roi vcf
-    vcf.tidy.rng <- vcfR2tidy(vcf.rng, single_frame = TRUE)
+    vcf.tidy.rng <- vcfR::vcfR2tidy(vcf.rng, single_frame = TRUE)
     vcf.df.rng <- as.data.frame(vcf.tidy.rng$dat)
 
 
 
     #Merge two dataframes to mark in ROIS
     sel <- vcf.df$POS %in% vcf.df.rng$POS
-    all.variants <- merge(vcf.df, exons.df, by="ID", all= TRUE) %>%
+    all.variants <- merge(vcf.df, exons.df, by="ID", all=TRUE) %>%
       mutate(INROI= sel,
               ID_sample=all_of(sample.name)) %>%
       relocate(CHROM, POS, ID, REF, ALT,INROI, exon)
@@ -249,42 +255,73 @@ convert_vcf_txt <- function(resultsDir, vcf.pattern, rng, args){
   }
 }
 
-merge_pipelines <- function(resultsDir){
-  samples <- list.dirs(resultsDir, recursive=FALSE)
-  for ( i in seq_len(length(samples))){
-    message(paste("Annotating", basename(samples[i]), "variants"))
-    all.vars <- list.files(samples[i], pattern= "all.variants.txt", recursive=TRUE, full.names = TRUE)
+merge_pipelines <- function(resultsDir, vars.paralogous, classification = classification){
+  samples <- list.dirs(resultsDir, recursive = FALSE)
+  print(resultsDir)
+  final.results <- file.path(resultsDir, "final_results")
+  #num.final.results <- which(stringr::str_detect(samples, "final_results"))
+
+  # if (length(final.results) > 0){
+  #   samples <- samples[-num.final.results]
+  # }
+dir.create(final.results, showWarnings = FALSE)
+print(samples)
+for (j in seq_len(length(samples))){
+  #for(j in 2456:length(samples)){
+    message(paste("Annotating", basename(samples[j]), "variants"))
+    all.vars <- list.files(samples[j], pattern= "all.variants.txt", recursive=TRUE, full.names = TRUE)
     file1 <- read.delim(all.vars[1], sep="\t", stringsAsFactors = FALSE)
     file2 <- read.delim(all.vars[2], sep="\t", stringsAsFactors = FALSE)
-    both <- merge(file1, file2[,c(3, 8, 14)], by="ID", all=TRUE )
-    all.variants.final <- cdnav2(dataset = both) %>%
+    both <- merge(file1, file2[,c("ID", "CHROM", "POS", "REF", "ALT", "INROI", "exon", "FILTER", "SAMPLE", "TYPE", "AF")], by="ID", all=TRUE )
+
+    #merge files for variants that are only in 1 pipeline
+    both2 <- both %>%
+      dplyr::rowwise() %>%
+      dplyr::mutate(CHROM = ifelse(is.na(CHROM.x), CHROM.y,CHROM.x),
+                    POS = ifelse(is.na(POS.x), POS.y, POS.x),
+                    REF = ifelse(is.na(REF.x), REF.y, REF.x),
+                    ALT = ifelse(is.na(ALT.x), ALT.y, ALT.x),
+                    TYPE = ifelse(is.na(TYPE.x), TYPE.y, TYPE.x),
+                    FILTER = ifelse(is.na(FILTER.x), FILTER.y, FILTER.x),
+                    exon = ifelse(is.na(exon.x), exon.y, exon.x),
+                    INROI = ifelse(is.na(INROI.x), INROI.y, INROI.x)) %>%
+      dplyr::select(-REF.x, - REF.y, -POS.x, -POS.y, -TYPE.x, -TYPE.y, -exon.x, -exon.y)
+
+    all.variants.final <- cdnav2(dataset = both2, vars.paralogous = vars.paralogous, classification ) %>%
       dplyr::relocate (cdna, prot, class_paralogous, paralogous_above60, class)
     all.variants.final.2 <- filter_variants(all.variants.final)
-    final_results <- file.path(resultsDir, "final_results")
-    dir.create(final_results)
-    write.table(all.variants.final.2, file.path(final_results, paste0(samples[i], "PMS2_variants.txt")), row.names=FALSE, col.names=TRUE, quote=FALSE)
+    write.table(all.variants.final.2, file.path(final.results, paste0(basename(samples)[j], "_PMS2_variants.txt")), sep="\t", row.names=FALSE, col.names=TRUE, quote=FALSE)
   }
 }
 
-cdnav2 <- function (dataset){
-  final.file <- dataset %>% mutate(variant = ifelse(str_length(REF)==1,
+cdnav2 <- function (dataset, vars.paralogous, classification ){
+
+    final.file <- dataset %>%
+      dplyr::mutate(ALT = ifelse(ALT=="<DUP>", paste0(REF, REF), ALT)) %>%
+      dplyr::mutate(variant = ifelse(str_length(REF)==1,
                                                        paste0("NC_000007.13%3Ag.", POS, REF,">", ALT),
                                                        paste0("NC_000007.13%3Ag.",as.numeric(POS+1),"_",as.numeric(POS+str_length(REF)-1), "del", str_sub(REF,2, -1)))) %>%
-    mutate (variant = ifelse(str_length(ALT)==1,
+      dplyr::mutate (variant = ifelse(str_length(ALT)==1,
                              variant,
                              paste0("NC_000007.13%3Ag.",as.numeric(POS), "_",as.numeric(POS+1), "ins", str_sub(ALT,2, -1)))) %>%
     mutate(variant = ifelse(str_length(ALT)>1 & str_length(REF)>1,
                             paste0("NC_000007.13%3Ag.", as.numeric(POS),"_", as.numeric(POS+str_length(REF)-1),"delins", ALT ),
-                            variant))
+                            variant)) %>%
+      mutate(variant = ifelse(ALT=="<DEL>" && stringr::str_length(REF)==1,
+                              paste0("NC_000007.13%3Ag.", as.numeric(POS), "del"),
+                              variant))
   final.file$cdna <- ":"
   final.file$prot <- ":"
   server_mutalyzerv3 <- "https://v3.mutalyzer.nl/api/normalize/"
+
   for (i in seq_len(nrow(final.file))){
     if (final.file$CHROM[i]==7){
-      if(!(final.file$TYPE[i] %in% c("INV", "<DEL>", "<DUP>")) && stringr::str_length(final.file$variant[i])<100){
+      if(!(final.file$TYPE[i] %in% c("INV", "<DEL>", "<DUP>", "DEL", "DUP")) && stringr::str_length(final.file$variant[i])<100){
         mut <- NA
-        while(is.na(mut)[1]| class(mut)=="try-error"){
-          mut <- try(read_json(paste0(server_mutalyzerv3,final.file$variant[i])))
+        m <- 0
+        while((is.na(mut)[1]| class(mut)=="try-error") && m<10 ){
+          mut <- try(jsonlite::read_json(paste0(server_mutalyzerv3,final.file$variant[i])))
+          m <- m+1
         }
         if(!is.null(mut$equivalent_descriptions)){
           number <- lapply(mut$equivalent_descriptions, function(x){
@@ -310,12 +347,12 @@ cdnav2 <- function (dataset){
   ## Determine if paralogous and >60
   final.file <- final.file %>%
     dplyr::rowwise() %>%
-    dplyr::mutate(class_paralogous= ifelse(ID %in% variants.pseudogen, "paralogous",""),
-                  class=ifelse(ID %in% ben, "BEN", "Not found"),
-                  class=ifelse(ID %in% vus, "VUS", class),
-                  class=ifelse(ID%in% pat, "PAT", class),
-                  class=ifelse(ID%in% lpat, "lPAT", class),
-                  class=ifelse(ID%in% lben, "lBEN", class),
+    dplyr::mutate(class_paralogous= ifelse(ID %in% vars.paralogous, "paralogous",""),
+                  class=ifelse(ID %in% classification$ben$ID.vars, "BEN", "Not found"),
+                  class=ifelse(ID %in% classification$vus$ID.vars, "VUS", class),
+                  class=ifelse(ID %in% classification$pat$ID.vars, "PAT", class),
+                  class=ifelse(ID %in% classification$lpat$ID.vars, "lPAT", class),
+                  class=ifelse(ID %in% classification$lben$ID.vars, "lBEN", class),
                   present_pipelines = ifelse(is.na(AF.y),
                                                    "general",
                                                    ifelse(is.na(AF.x),
@@ -343,8 +380,9 @@ filter_variants <- function(all.variants.final){
     dplyr::rowwise() %>%
     dplyr::mutate(what_to_do = ifelse(!FILTER.x %in% c("PASS", "NM5.25", "InIns", "NM5.25;InIns", "InIns;NM5.25;" ),
                                         "QUALITY FILTER NOT PASSED",
-                                        ifelse(INROI == "FALSE", "Out of ROI",
-                                               ifelse(paralogous_above60 =="",
+                                        ifelse(INROI == "FALSE",
+                                               "Out of ROI",
+                                               ifelse(paralogous_above60 == FALSE && class_paralogous =="paralogous",
                                                       "Do not classify, paralogous variant <60",
                                                       ifelse(class %in% c("Not found") ,
                                                              "Classify variant",
