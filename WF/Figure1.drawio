@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-01-08T08:35:42.727Z" agent="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/119.0" etag="KJq2Dd6Ll26ENbfuFqOa" version="22.1.17" type="github">
+<mxfile host="app.diagrams.net" modified="2024-01-22T13:45:32.416Z" agent="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/119.0" etag="7NKcA2hYLV4I87qEKAtC" version="22.1.17" type="github">
   <diagram name="Page-1" id="ag188vEUX45JVOgcmbsB">
     <mxGraphModel dx="1253" dy="1798" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -213,9 +213,6 @@
               <mxPoint x="534" y="159" />
             </Array>
           </mxGeometry>
-        </mxCell>
-        <mxCell id="VpbdpCBQVAK6c9VsEZkQ-12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="DD6BnUzv3AWOmGqipu_t-84" target="DD6BnUzv3AWOmGqipu_t-86" edge="1">
-          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="DD6BnUzv3AWOmGqipu_t-84" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;Classified variants csv&lt;/div&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;size=21;" parent="1" vertex="1">
           <mxGeometry x="504" y="40" width="60" height="80" as="geometry" />
