@@ -48,7 +48,8 @@ system(paste("awk 'NR==", chr7, ", NR==", chr8-1,"'", args$reference, ">", file.
 
 #Read pms2CL fasta file as a DNAstring and convert it to a character
 pms2cl <- readDNAStringSet(args$pms2CLfasta)
-pms2clb <- paste0(pms2cl$`7 dna:chromosome chromosome:GRCh37:7:6774686:6791273:1`, collapse="")
+#pms2clb <- paste0(pms2cl$`7 dna:chromosome chromosome:GRCh37:7:6774686:6791273:1`, collapse="")
+pms2clb <- paste0(pms2cl[1], collapse="")
 
 #Read the chr7 fasta file as a DNAstring and convert it to a character
 genome <- readDNAStringSet(file.path(direct, "chr7.fa"))
