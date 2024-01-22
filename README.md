@@ -33,7 +33,7 @@ Rscript modify_reference.R [-r --reference reference_genome_path] [-p --pms2CLfa
 5. **Launch PMS2_vaR**
 ```
 cd PMS2_vaR
-Rscript runPMS2_vaR.R [-t tools_file] [-b bam.txt_path] [-r modified_reference_genome_path] [-v vardictjava_path] [-n --samplesname samplesname] [-o --outputdir path_to_output_directory]
+Rscript runPMS2_vaR.R [-t tools_file] [-b bam.txt_path] [-r modified_reference_genome_path][-g genome_assembly] [-v vardictjava_path] [-n --samplesname samplesname] [-o --outputdir path_to_output_directory]
 ```
 
 ### Output ###
