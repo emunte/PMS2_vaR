@@ -1,186 +1,195 @@
 
 pms2_realignment <- function(args, tools, vardict, output.samples.dir){
-bams <- read.table(args$bamTxt)
-dir.create(output.samples.dir, showWarnings = FALSE)
-for (b in seq_len(nrow(bams))){
-  #Get sample name
-  sample.name <-bams[b,1] %>% as.character %>%
-    basename() %>%
-    stringr::str_replace(".bam", "")
-  full <- bams[b,1] %>% as.character()
+  bams <- read.table(args$bamTxt)
+  dir.create(output.samples.dir, showWarnings = FALSE)
+  for (b in seq_len(nrow(bams))){
+    #Get sample name
+    sample.name <-bams[b,1] %>% as.character %>%
+      basename() %>%
+      stringr::str_replace(".bam", "")
+    full <- bams[b,1] %>% as.character()
 
-  #Create results dir per sample
-  results.dir.sample <- file.path(output.samples.dir, sample.name)
-  dir.create (results.dir.sample, showWarnings = FALSE)
+    #Create results dir per sample
+    results.dir.sample <- file.path(output.samples.dir, sample.name)
+    dir.create (results.dir.sample, showWarnings = FALSE)
 
-  #Create folder to store first approach
-  results.dir.1 <- file.path(results.dir.sample, "Approach1")
-  results.dir.2 <- file.path(results.dir.sample, "Approach2")
-  dir.create(results.dir.1)
-  dir.create(results.dir.2)
+    #Create folder to store first approach
+    results.dir.1 <- file.path(results.dir.sample, "Approach1")
+    results.dir.2 <- file.path(results.dir.sample, "Approach2")
+    dir.create(results.dir.1)
+    dir.create(results.dir.2)
 
-  #Location for different files
-  ## APPROACH 1
-  vcfvardict <- file.path (results.dir.1, paste0(sample.name, "freq", vardict$freq, "_VARDICT.vcf"))
-  filtered.bam <- paste0(results.dir.1, "/filtered", sample.name, ".bam" )
-  r1 <- paste0(results.dir.1,"/r1_", sample.name, ".fastq")
-  r2 <- paste0(results.dir.1,"/r2_", sample.name, ".fastq")
-  sam <- paste0(results.dir.1, "/segon_alineament", sample.name, ".sam")
-  second.bam<- paste0(results.dir.1, "/second_alignment_", sample.name, ".bam")
-  sorted.bam <- paste0(results.dir.1, "/second_alignment_", sample.name, "_sorted")
-
-
-  ## APPROACH 2
-  vcfvardict.E11 <- file.path (results.dir.2, paste0(sample.name, "freq", vardict$freq, "_VARDICT.vcf"))
-  filtered.bam.E11 <- paste0(results.dir.2, "/filtrar", sample.name, ".bam" )
-  filtered.bam.E11.1 <- paste0(results.dir.2, "/filtrar_resta_", sample.name, ".bam" )
-  filtered.bam.E11.2 <- paste0(results.dir.2, "/filtrar_E11_", sample.name, ".bam" )
-  filtered.bam.E11.3 <- paste0(results.dir.2, "/filtrar_E11_picard", sample.name, ".bam" )
-  read.names <- paste0(results.dir.2, "/read_names", sample.name, ".txt" )
-  r1.E11 <- paste0(results.dir.2,"/r1_", sample.name, ".fastq")
-  r2.E11 <- paste0(results.dir.2,"/r2_", sample.name, ".fastq")
-  sam.E11 <- paste0(results.dir.2, "/segon_alineament", sample.name, ".sam")
-  second.bam.E11 <- paste0(results.dir.2, "/second_aligment_", sample.name, ".bam")
-  third.bam.E11 <- paste0(results.dir.2, "/third_alignment", sample.name, ".bam")
-  sorted.bam.E11 <- paste0(results.dir.2, "/third_alignment", sample.name, "sorted")
+    #Location for different files
+    ## APPROACH 1
+    vcfvardict <- file.path (results.dir.1, paste0(sample.name, "freq", vardict$freq, "_VARDICT.vcf"))
+    filtered.bam <- paste0(results.dir.1, "/filtered", sample.name, ".bam" )
+    r1 <- paste0(results.dir.1,"/r1_", sample.name, ".fastq")
+    r2 <- paste0(results.dir.1,"/r2_", sample.name, ".fastq")
+    sam <- paste0(results.dir.1, "/segon_alineament", sample.name, ".sam")
+    second.bam<- paste0(results.dir.1, "/second_alignment_", sample.name, ".bam")
+    sorted.bam <- paste0(results.dir.1, "/second_alignment_", sample.name, "_sorted")
 
 
-  #PIPELINE
-
-  #APROACH 1 ----
-
-  ### 1. Filter gen + pseudogen regions with samtools
-  cmd1 <-paste(tools$samtools, "view -b -h", full, "7:6012830-6049024 7:6774736-6791432 >", filtered.bam)
-  print(cmd1); system(cmd1)
-
-  ### 2. Go back to fastq with picard
-  cmd2 <- paste("java -jar", tools$picardJar, "SamToFastq -I", filtered.bam, "-F", r1 , "-F2", r2)
-  print(cmd2); system(cmd2)
-
-  ### 3. Realign with bwa mem
-  cmd3 <- paste(tools$bwa,  "mem -t 1", args$reference, r1, r2, ">", sam)
-  print(cmd3); system(cmd3)
-
-  ### 4. Convert sam to bam
-  cmd4 <- paste(tools$samtools, "view -b -S", sam, ">", second.bam)
-  print(cmd4); system(cmd4)
-
-  ### 5. Sort the bam file amb index the bam file
-  cmd5 <- paste (tools$samtools , "sort", second.bam, sorted.bam )
-  print(cmd5); system(cmd5)
-  cmd6 <- paste (tools$samtools , "index", paste0(sorted.bam, ".bam"))
-  print(cmd6); system(cmd6)
-
-  #delete intermediate files
-  system(paste("rm", filtered.bam))
-  system(paste("rm", r1))
-  system(paste("rm", r2))
-  system(paste("rm", sam))
-  system(paste("rm", second.bam))
-
-  # 6. Variant calling with VardictJava
-
-  cmd7 <- paste (paste(paste0(tools$vardict,  "/bin/VarDict"),
-                   "-G", args$reference,
-                   "-X", vardict$X,
-                   "-q", vardict$phred_score,
-                   "-m", vardict$missmatches,
-                   "-f", (vardict$freq/100),
-                   "-N", sample.name,
-                   "-b ", paste0(sorted.bam, ".bam"),
-                   "-R chr7:6012350-6049257:PMS2 | ",
-                   paste0(tools$vardict , "/bin/teststrandbias.R | "),
-                   paste0(tools$vardict, "/bin/var2vcf_valid.pl"),
-                   "-N", sample.name,
-                   "-E -A ",
-                   "-d 8",
-                   "-q", vardict$phred_score,
-                   "-f", (vardict$freq/100), " > ",
-                   vcfvardict ))
-  print(cmd7); system(cmd7)
-
-  # APPROACH 2 ----
-
-  ## 1. Filter regions:
-
-  ### 1.1 Outside E11 -> Filter with samtools the regions of interst
-  cmd1 <-paste(tools$samtools, "view -b -h", full, "7:6012830-6022822 7:6029231-6049024 7:6774736-6775220 7:6781116-6791432 >", filtered.bam.E11.1)
-  print(cmd1); system(cmd1)
-
-  ### 1.2 Inside E11
-  #### 1.2.1 Filter considering the invariable variants detailed in Gould et al
-  cmd1.2 <- paste(tools$samtools, "view -b -h", full, "7:6026364-6026364 7:6026598-6026598 7:6026601-6026601 7:6026625-6026625 7:6026636-6026636 7:6026707-6026707 7:6027017-6027017 7:6027474-6027474>", filtered.bam.E11.2)
-  print(cmd1.2); system(cmd1.2)
-  #### 1.2.2 Get reads name that overlap with this 7 positions (without duplicates)
-  cmd1.3 <- paste( tools$samtools, "view", filtered.bam.E11.2 , " | cut -f1 | sort | uniq >", read.names)
-  print(cmd1.3); system(cmd1.3)
-
-  #### 1.2.3 Filter reads from the original bam file taking into consideration the name (picard).
-  cmd1.4 <- paste("java -jar", tools$picard, "FilterSamReads -I", full, "-O",  filtered.bam.E11.3, "-FILTER includeReadList -READ_LIST_FILE", read.names)
-  print(cmd1.4); system(cmd1.4)
+    ## APPROACH 2
+    vcfvardict.E11 <- file.path (results.dir.2, paste0(sample.name, "freq", vardict$freq, "_VARDICT.vcf"))
+    filtered.bam.E11 <- paste0(results.dir.2, "/filtrar", sample.name, ".bam" )
+    filtered.bam.E11.1 <- paste0(results.dir.2, "/filtrar_resta_", sample.name, ".bam" )
+    filtered.bam.E11.2 <- paste0(results.dir.2, "/filtrar_E11_", sample.name, ".bam" )
+    filtered.bam.E11.3 <- paste0(results.dir.2, "/filtrar_E11_picard", sample.name, ".bam" )
+    read.names <- paste0(results.dir.2, "/read_names", sample.name, ".txt" )
+    r1.E11 <- paste0(results.dir.2,"/r1_", sample.name, ".fastq")
+    r2.E11 <- paste0(results.dir.2,"/r2_", sample.name, ".fastq")
+    sam.E11 <- paste0(results.dir.2, "/segon_alineament", sample.name, ".sam")
+    second.bam.E11 <- paste0(results.dir.2, "/second_aligment_", sample.name, ".bam")
+    third.bam.E11 <- paste0(results.dir.2, "/third_alignment", sample.name, ".bam")
+    sorted.bam.E11 <- paste0(results.dir.2, "/third_alignment", sample.name, "sorted")
 
 
-  ## 2.  Go back to fastq with picard:
-  ### 2.1 Outside E11
-  cmd2 <- paste("java -jar", tools$picardJar, "SamToFastq -I", filtered.bam.E11.1, "-F", r1.E11 , "-F2", r2.E11)
-  print(cmd2); system(cmd2)
+    #PIPELINE
 
-  ### 2.2 Inside E11 -> not necessary
+    #APROACH 1 ----
 
-  ## 3. Realign with bwa mem
-  ### 3.1 Outside E11
-  cmd3 <- paste(tools$bwa,  "mem -t 1", args$reference, r1.E11, r2.E11, ">", sam.E11)
-  print(cmd3); system(cmd3)
+    ### 1. Filter gen + pseudogen regions with samtools
+    position.filter <- ifelse(args$genome=="hg19", "7:6012830-6049024 7:6774736-6791432 >", "7:5973199-66584037 7:6735105-6751801 >")
+    cmd1 <-paste(tools$samtools, "view -b -h", full, position.filter, filtered.bam)
+    print(cmd1); system(cmd1)
 
-  ### 3.2 Inside E11 -> not necessary
+    ### 2. Go back to fastq with picard
+    cmd2 <- paste("java -jar", tools$picardJar, "SamToFastq -I", filtered.bam, "-F", r1 , "-F2", r2)
+    print(cmd2); system(cmd2)
 
-  ## 4. Convert from sam to bam
-  ### 4.1 Outside E11
-  cmd4 <- paste(tools$samtools, "view -b -S", sam.E11, ">", second.bam.E11)
-  print(cmd4); system(cmd4)
+    ### 3. Realign with bwa mem
+    cmd3 <- paste(tools$bwa,  "mem -t 1", args$reference, r1, r2, ">", sam)
+    print(cmd3); system(cmd3)
 
-  ### 4.2 Inside E11 -> not necessary
+    ### 4. Convert sam to bam
+    cmd4 <- paste(tools$samtools, "view -b -S", sam, ">", second.bam)
+    print(cmd4); system(cmd4)
 
-  ## 5. Merge the two bams
-  cmd4.1 <- paste("java -jar", tools$picard, "MergeSamFiles -I", second.bam.E11, "-I", filtered.bam.E11.3, "-O", third.bam.E11)
-  print(cmd4.1); system(cmd4.1)
+    ### 5. Sort the bam file amb index the bam file
+    cmd5 <- paste (tools$samtools , "sort", second.bam, sorted.bam )
+    print(cmd5); system(cmd5)
+    cmd6 <- paste (tools$samtools , "index", paste0(sorted.bam, ".bam"))
+    print(cmd6); system(cmd6)
 
-  ## 6. Sort + index
-  cmd5 <- paste (tools$samtools , "sort", third.bam.E11, sorted.bam.E11 )
-  print(cmd5); system(cmd5)
-  cmd6 <- paste (tools$samtools , "index", paste0(sorted.bam.E11, ".bam"))
-  print(cmd6); system(cmd6)
+    #delete intermediate files
+    system(paste("rm", filtered.bam))
+    system(paste("rm", r1))
+    system(paste("rm", r2))
+    system(paste("rm", sam))
+    system(paste("rm", second.bam))
 
-  #remove intermediate files
-  system(paste("rm", filtered.bam.E11.1))
-  system(paste("rm", filtered.bam.E11.2))
-  system(paste("rm", filtered.bam.E11.3))
-  system(paste("rm", r1.E11))
-  system(paste("rm", r2.E11))
-  system(paste("rm", sam.E11))
-  system(paste("rm", second.bam.E11))
-  system(paste("rm", third.bam.E11))
+    # 6. Variant calling with VardictJava
+    range.position <- ifelse(args$genome=="hg19", "chr7:6012350-6049257:PMS2", "chr7:5972719-6009626:PMS2")
 
-  ## 7. Variant calling with VardictJava
+    cmd7 <- paste(paste0(tools$vardict,  "/bin/VarDict"),
+                  "-G", args$reference,
+                  "-X", vardict$X,
+                  "-q", vardict$phred_score,
+                  "-m", vardict$missmatches,
+                  "-f", (vardict$freq),
+                  "-N", sample.name,
+                  "-b ", paste0(sorted.bam, ".bam"),
+                  "-R", range.position, " | ",
+                  paste0(tools$vardict , "/bin/teststrandbias.R | "),
+                  paste0(tools$vardict, "/bin/var2vcf_valid.pl"),
+                  "-N", sample.name,
+                  "-E -A ",
+                  "-d 8",
+                  "-q", vardict$phred_score,
+                  "-f", (vardict$freq), " > ",
+                  vcfvardict )
+    print(cmd7); system(cmd7)
 
-  cmd7 <- paste (paste(paste0(tools$vardict,  "/bin/VarDict"),
-                       "-G", args$reference,
-                       "-X", vardict$X,
-                       "-q", vardict$phred_score,
-                       "-m", vardict$missmatches,
-                       "-f", (vardict$freq/100),
-                       "-N", sample.name,
-                       "-b ", paste0(sorted.bam.E11, ".bam"),
-                       "-R chr7:6012350-6049257:PMS2 | ",
-                       paste0(tools$vardict , "/bin/teststrandbias.R | "),
-                       paste0(tools$vardict, "/bin/var2vcf_valid.pl"),
-                       "-N", sample.name,
-                       "-E -A ",
-                       "-d 8",
-                       "-q", vardict$phred_score,
-                       "-f", (vardict$freq/100), " > ",
-                       vcfvardict.E11 ))
-  print(cmd7); system(cmd7)
+    # APPROACH 2 ----
+
+    ## 1. Filter regions:
+
+    ### 1.1 Outside E11 -> Filter with samtools the regions of interst
+    position.filter.outside.E11 <- ifelse(args$genome == "hg19",
+                                          "7:6012830-6022822 7:6029231-6049024 7:6774736-6775220 7:6781116-6791432 >",
+                                          "7:5973199-5983191 7:5989600-6009393 7:6735105-6735589 7:6741485-6751801 >")
+
+    cmd1 <-paste(tools$samtools, "view -b -h", full,  position.filter.outside.E11, filtered.bam.E11.1)
+    print(cmd1); system(cmd1)
+
+    ### 1.2 Inside E11
+    #### 1.2.1 Filter considering the invariable variants detailed in Gould et al
+    invariable.positions <- ifelse(args$genome == "hg19",
+                                   "7:6026364-6026364 7:6026598-6026598 7:6026601-6026601 7:6026625-6026625 7:6026636-6026636 7:6026707-6026707 7:6027017-6027017 7:6027474-6027474 >",
+                                   "7:5986733-5986733 7:5986967-5986967 7:5986970-5986970 7:5986994-5986994 7:5987005-5987005 7:5987076-5987076 7:5987386-5987386 7:5987843-5987843 >")
+    cmd1.2 <- paste(tools$samtools, "view -b -h", full, invariable.positions, filtered.bam.E11.2)
+    print(cmd1.2); system(cmd1.2)
+    #### 1.2.2 Get reads name that overlap with this 7 positions (without duplicates)
+    cmd1.3 <- paste( tools$samtools, "view", filtered.bam.E11.2 , " | cut -f1 | sort | uniq >", read.names)
+    print(cmd1.3); system(cmd1.3)
+
+    #### 1.2.3 Filter reads from the original bam file taking into consideration the name (picard).
+    cmd1.4 <- paste("java -jar", tools$picard, "FilterSamReads -I", full, "-O",  filtered.bam.E11.3, "-FILTER includeReadList -READ_LIST_FILE", read.names)
+    print(cmd1.4); system(cmd1.4)
+
+
+    ## 2.  Go back to fastq with picard:
+    ### 2.1 Outside E11
+    cmd2 <- paste("java -jar", tools$picardJar, "SamToFastq -I", filtered.bam.E11.1, "-F", r1.E11 , "-F2", r2.E11)
+    print(cmd2); system(cmd2)
+
+    ### 2.2 Inside E11 -> not necessary
+
+    ## 3. Realign with bwa mem
+    ### 3.1 Outside E11
+    cmd3 <- paste(tools$bwa,  "mem -t 1", args$reference, r1.E11, r2.E11, ">", sam.E11)
+    print(cmd3); system(cmd3)
+
+    ### 3.2 Inside E11 -> not necessary
+
+    ## 4. Convert from sam to bam
+    ### 4.1 Outside E11
+    cmd4 <- paste(tools$samtools, "view -b -S", sam.E11, ">", second.bam.E11)
+    print(cmd4); system(cmd4)
+
+    ### 4.2 Inside E11 -> not necessary
+
+    ## 5. Merge the two bams
+    cmd4.1 <- paste("java -jar", tools$picard, "MergeSamFiles -I", second.bam.E11, "-I", filtered.bam.E11.3, "-O", third.bam.E11)
+    print(cmd4.1); system(cmd4.1)
+
+    ## 6. Sort + index
+    cmd5 <- paste (tools$samtools , "sort", third.bam.E11, sorted.bam.E11 )
+    print(cmd5); system(cmd5)
+    cmd6 <- paste (tools$samtools , "index", paste0(sorted.bam.E11, ".bam"))
+    print(cmd6); system(cmd6)
+
+    #remove intermediate files
+    system(paste("rm", filtered.bam.E11.1))
+    system(paste("rm", filtered.bam.E11.2))
+    system(paste("rm", filtered.bam.E11.3))
+    system(paste("rm", r1.E11))
+    system(paste("rm", r2.E11))
+    system(paste("rm", sam.E11))
+    system(paste("rm", second.bam.E11))
+    system(paste("rm", third.bam.E11))
+
+    ## 7. Variant calling with VardictJava
+
+    cmd7 <- paste(paste0(tools$vardict,  "/bin/VarDict"),
+                  "-G", args$reference,
+                  "-X", vardict$X,
+                  "-q", vardict$phred_score,
+                  "-m", vardict$missmatches,
+                  "-f", (vardict$freq),
+                  "-N", sample.name,
+                  "-b ", paste0(sorted.bam.E11, ".bam"),
+                  "-R", range.position, " | ",
+                  paste0(tools$vardict , "/bin/teststrandbias.R | "),
+                  paste0(tools$vardict, "/bin/var2vcf_valid.pl"),
+                  "-N", sample.name,
+                  "-E -A ",
+                  "-d 8",
+                  "-q", vardict$phred_score,
+                  "-f", (vardict$freq), " > ",
+                  vcfvardict.E11)
+    print(cmd7); system(cmd7)
 
 
 
@@ -294,22 +303,25 @@ for (j in seq_len(length(samples))){
   }
 }
 
-cdnav2 <- function (dataset, vars.paralogous, classification ){
+cdnav2 <- function (dataset, vars.paralogous, classification, args){
+  NC <- ifelse(args$genome == "hg19",
+               "NC_000007.13",
+               "NC_000007.14")
 
-    final.file <- dataset %>%
-      dplyr::mutate(ALT = ifelse(ALT=="<DUP>", paste0(REF, REF), ALT)) %>%
-      dplyr::mutate(variant = ifelse(str_length(REF)==1,
-                                                       paste0("NC_000007.13%3Ag.", POS, REF,">", ALT),
-                                                       paste0("NC_000007.13%3Ag.",as.numeric(POS+1),"_",as.numeric(POS+str_length(REF)-1), "del", str_sub(REF,2, -1)))) %>%
-      dplyr::mutate (variant = ifelse(str_length(ALT)==1,
-                             variant,
-                             paste0("NC_000007.13%3Ag.",as.numeric(POS), "_",as.numeric(POS+1), "ins", str_sub(ALT,2, -1)))) %>%
+  final.file <- dataset %>%
+    dplyr::mutate(ALT = ifelse(ALT=="<DUP>", paste0(REF, REF), ALT)) %>%
+    dplyr::mutate(variant = ifelse(str_length(REF)==1,
+                                   paste0(NC, "%3Ag.", POS, REF,">", ALT),
+                                   paste0(NC, "%3Ag.",as.numeric(POS+1),"_",as.numeric(POS+str_length(REF)-1), "del", str_sub(REF,2, -1)))) %>%
+    dplyr::mutate (variant = ifelse(str_length(ALT)==1,
+                                    variant,
+                                    paste0(NC,"%3Ag.",as.numeric(POS), "_",as.numeric(POS+1), "ins", str_sub(ALT,2, -1)))) %>%
     mutate(variant = ifelse(str_length(ALT)>1 & str_length(REF)>1,
-                            paste0("NC_000007.13%3Ag.", as.numeric(POS),"_", as.numeric(POS+str_length(REF)-1),"delins", ALT ),
+                            paste0(NC, "%3Ag.", as.numeric(POS),"_", as.numeric(POS+str_length(REF)-1),"delins", ALT ),
                             variant)) %>%
-      mutate(variant = ifelse(ALT=="<DEL>" && stringr::str_length(REF)==1,
-                              paste0("NC_000007.13%3Ag.", as.numeric(POS), "del"),
-                              variant))
+    mutate(variant = ifelse(ALT=="<DEL>" && stringr::str_length(REF)==1,
+                            paste0(NC, "%3Ag.", as.numeric(POS), "del"),
+                            variant))
   final.file$cdna <- ":"
   final.file$prot <- ":"
   server_mutalyzerv3 <- "https://v3.mutalyzer.nl/api/normalize/"
@@ -326,7 +338,7 @@ cdnav2 <- function (dataset, vars.paralogous, classification ){
         if(!is.null(mut$equivalent_descriptions)){
           number <- lapply(mut$equivalent_descriptions, function(x){
             stringr::str_detect(x, "NM_000535.7")
-            }) %>%
+          }) %>%
             unlist() %>%
             which()
           if(length(number)>0){
@@ -354,10 +366,10 @@ cdnav2 <- function (dataset, vars.paralogous, classification ){
                   class=ifelse(ID %in% classification$lpat$ID.vars, "lPAT", class),
                   class=ifelse(ID %in% classification$lben$ID.vars, "lBEN", class),
                   present_pipelines = ifelse(is.na(AF.y),
-                                                   "general",
-                                                   ifelse(is.na(AF.x),
-                                                          "E11",
-                                                          "2 pipelines" )),
+                                             "general",
+                                             ifelse(is.na(AF.x),
+                                                    "E11",
+                                                    "2 pipelines" )),
                   NM= "NM_000535.7",
                   cdna = stringr::str_split(cdna, ":") %>% purrr::map(2) %>% unlist,
                   NP = "NP_000526.2",
