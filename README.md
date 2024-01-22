@@ -39,7 +39,7 @@ Rscript runPMS2_vaR.R [-t tools_file] [-b bam.txt_path] [-r modified_reference_g
 ### Output ###
 An excel file is obtained in the output directory (-o). 
 An algorithm was designed to recommend if a (likely) pathogenic variant would need confirmation by LR-PCR and, if located in PMS2, should be reported
-![See Algorithm](https://github.com/emunte/PMS2_vaR/blob/main/WF/Figure1_08012024.png)
+![See Algorithm](https://github.com/emunte/PMS2_vaR/blob/main/WF/Figure2_08012024.png)
 
 
 
