@@ -38,4 +38,6 @@ Rscript runPMS2_vaR.R [-t tools_file] [-b bam.txt_path] [-r modified_reference_g
 
 ### Output ###
 
+![alt text](https://github.com/emunte/PMS2_vaR/WF/FIgure1_08012024.png)
+
 
