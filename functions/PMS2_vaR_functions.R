@@ -231,8 +231,8 @@ samples.name <- basename(files) %>% stringr::str_replace("freq.+", "")
     #Read the complete vcf``
     vcf <- vcfR::read.vcfR(tab$path)
     # Read vcf only with inROI
-    vcf.rng <- VariantAnnotation::readVcf(tab, "hg19", param=rng)
-    vcf.rng.exons <- VariantAnnotation::readVcf(tab, "hg19", param=bedGR)
+    vcf.rng <- VariantAnnotation::readVcf(tab, args$genome, param=rng)
+    vcf.rng.exons <- VariantAnnotation::readVcf(tab, args$genome, param=bedGR)
     exons.df <- data.frame(ID= names(vcf.rng.exons@rowRanges),
                            exon = vcf.rng.exons@rowRanges$paramRangeID %>% as.character()) %>%
       dplyr::group_by(ID) %>% dplyr::slice (1)
@@ -360,11 +360,11 @@ cdnav2 <- function (dataset, vars.paralogous, classification, args){
   final.file <- final.file %>%
     dplyr::rowwise() %>%
     dplyr::mutate(class_paralogous= ifelse(ID %in% vars.paralogous, "paralogous",""),
-                  class=ifelse(ID %in% classification$ben$ID.vars, "BEN", "Not found"),
-                  class=ifelse(ID %in% classification$vus$ID.vars, "VUS", class),
-                  class=ifelse(ID %in% classification$pat$ID.vars, "PAT", class),
-                  class=ifelse(ID %in% classification$lpat$ID.vars, "lPAT", class),
-                  class=ifelse(ID %in% classification$lben$ID.vars, "lBEN", class),
+                  class=ifelse(ID %in% ifelse(args$genome=="hg19", classification$ben$ID.vars, classification$ben$ID.vars.hg38), "BEN", "Not found"),
+                  class=ifelse(ID %in% ifelse(args$genome=="hg19", classification$vus$ID.vars, classification$vus$ID.vars.hg38), "VUS", class),
+                  class=ifelse(ID %in% ifelse(args$genome=="hg19", classification$pat$ID.vars, classification$pat$ID.vars.hg38), "PAT", class),
+                  class=ifelse(ID %in% ifelse(args$genome=="hg19", classification$lpat$ID.vars, classification$lpat$ID.vars.hg38), "lPAT", class),
+                  class=ifelse(ID %in% ifelse(args$genome=="hg19", classification$lben$ID.vars, classification$lben$ID.vars.hg38),"lBEN", class),
                   present_pipelines = ifelse(is.na(AF.y),
                                              "general",
                                              ifelse(is.na(AF.x),
