@@ -1,5 +1,5 @@
 # Description: Run the PMS2_vaR pipeline
-# USAGE: Rscript runPMS2_vaR.R [-t tools_file] [-d datasets_file]
+# USAGE: Rscript runPMS2_vaR.R [-t tools_file] [-b bamTxt_file] [-r reference_bam_file] [-g genome_assembly] [-v vardictJava_params] [-o outputdir] [-n folder_name]
 
 #libs
 library(yaml)
@@ -32,6 +32,8 @@ if (length(list.files(pattern = "runPMS2_vaR.R"))== 0){
                help="Path to bams TXT routes. Copy all full paths of your bam files to a txt-file", metavar="character"),
    make_option(c("-r", "--reference"), type="character", default="",
                help="Full path to reference modified file (fa), with no PMS2CL sequence.", metavar="character"),
+   make_option(c("-g", "--genome"), type="character", default="hg19",
+               help="Assembly used hg19 or hg38", metavar="character"),
    make_option(c("-v", "--vardictjava"), type="character", default="params/vardictjavaParams.yaml",
                help="Full path to vardict java params", metavar="character"),
    make_option(c("-o", "--outputdir"), type="character", default="",
@@ -50,6 +52,7 @@ vardict <- yaml.load_file(args$vardictjava)
 #Checks
 assertthat::assert_that(file.exists(args$reference), msg="Please enter a reference file")
 assertthat::assert_that(stringr::str_detect(args$reference, ".fa"), msg="Please enter a valid reference file (fasta format)")
+assertthat::assert_that((args$genome=="hg19" | args$genome=="hg38"), msg="Assembly can only be hg19 or hg38")
 
 
 #create logs/output folder if not exists
