@@ -1,9 +1,39 @@
-<mxfile host="app.diagrams.net" modified="2024-04-08T09:02:06.237Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36" version="24.2.1" etag="QBginnZZdGEinrDkznpF" type="github">
+<mxfile host="app.diagrams.net" modified="2024-04-08T09:17:58.479Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36" etag="aGW5ruagRelCCg_FVbRP" version="24.2.1" type="github">
   <diagram name="Pàgina-1" id="Fn96gMA0QaiYVja4pfA_">
-    <mxGraphModel>
+    <mxGraphModel dx="2314" dy="1098" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="vqKBi8GEHMhsMaxuOWYq-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="vqKBi8GEHMhsMaxuOWYq-2" target="vqKBi8GEHMhsMaxuOWYq-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vqKBi8GEHMhsMaxuOWYq-2" value="&lt;font style=&quot;font-size: 12px;&quot;&gt;&lt;span style=&quot;line-height: 107%; font-family: Arial, sans-serif;&quot; lang=&quot;EN-US&quot;&gt;&lt;span style=&quot;line-height: 107%;&quot; lang=&quot;EN-US&quot;&gt;LS suspicion with exclusive PMS2 IHC -&amp;nbsp;&lt;/span&gt;&amp;nbsp;sample&lt;/span&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="100" width="150" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vqKBi8GEHMhsMaxuOWYq-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="vqKBi8GEHMhsMaxuOWYq-3" target="vqKBi8GEHMhsMaxuOWYq-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vqKBi8GEHMhsMaxuOWYq-3" value="Routine diagnostics panel" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="32" y="220" width="126" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="vqKBi8GEHMhsMaxuOWYq-5" value="Routine pipeline: look for VUS, (likely) PAT in&amp;nbsp;&lt;i style=&quot;text-wrap: nowrap;&quot;&gt;MLH1, MSH2, MSH6, MUTYH, POLE, POLD1&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="330" y="185" width="300" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="vqKBi8GEHMhsMaxuOWYq-7" value="PMS2_vaR pipeline: Decision making algorithm (Figure2)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="330" y="235" width="300" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="vqKBi8GEHMhsMaxuOWYq-9" value="variant&amp;nbsp;&lt;div&gt;report&lt;/div&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;" vertex="1" parent="1">
+          <mxGeometry x="680" y="170" width="80" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="vqKBi8GEHMhsMaxuOWYq-17" value="Analysis" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="220" y="220" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="vqKBi8GEHMhsMaxuOWYq-19" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;labelPosition=left;verticalLabelPosition=middle;align=right;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="310" y="170" width="20" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="vqKBi8GEHMhsMaxuOWYq-22" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;flipH=1;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="630" y="170" width="20" height="120" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
