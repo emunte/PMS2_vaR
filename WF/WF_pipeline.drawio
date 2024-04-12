@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2024-04-12T07:37:35.223Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36" etag="25jzyA8v9bMBn8vPjffh" version="24.2.2" type="github">
+<mxfile host="app.diagrams.net" modified="2024-04-12T10:46:34.587Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36" etag="QfjPJqhCUKihtk7fbw1w" version="24.2.2" type="github">
   <diagram name="Page-1" id="Qz9lvQuuYSKgR6KqhHCB">
-    <mxGraphModel dx="3804" dy="2277" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="2918" dy="1924" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -10,8 +10,8 @@
         <mxCell id="L2tWmQwmKj26mh4VTE-m-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="L2tWmQwmKj26mh4VTE-m-1" target="L2tWmQwmKj26mh4VTE-m-2" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="L2tWmQwmKj26mh4VTE-m-1" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;&lt;b&gt;&lt;font style=&quot;font-size: 20px;&quot;&gt;candidate&lt;/font&gt;&lt;/b&gt;&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 20px;&quot;&gt;&lt;b&gt;&lt;font style=&quot;font-size: 20px;&quot;&gt;variant&lt;/font&gt;&lt;/b&gt;&lt;/font&gt;&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
-          <mxGeometry x="442.5" y="190" width="120" height="50" as="geometry" />
+        <mxCell id="L2tWmQwmKj26mh4VTE-m-1" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;&lt;b&gt;&lt;font style=&quot;font-size: 20px;&quot;&gt;&lt;i&gt;PMS2&lt;/i&gt;&lt;/font&gt;&lt;/b&gt;&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 20px;&quot;&gt;&lt;b&gt;&lt;font style=&quot;font-size: 20px;&quot;&gt;candidate&lt;/font&gt;&lt;/b&gt;&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 20px;&quot;&gt;&lt;b&gt;&lt;font style=&quot;font-size: 20px;&quot;&gt;variant&lt;/font&gt;&lt;/b&gt;&lt;/font&gt;&lt;/div&gt;&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="423.75" y="190" width="157.5" height="80" as="geometry" />
         </mxCell>
         <mxCell id="L2tWmQwmKj26mh4VTE-m-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="L2tWmQwmKj26mh4VTE-m-2" target="L2tWmQwmKj26mh4VTE-m-10" edge="1">
           <mxGeometry relative="1" as="geometry" />
@@ -268,10 +268,10 @@
         <mxCell id="kUycqnt7xYHu5eqPhcUD-4" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;Routine diagnostics panel&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D0CEE2;" vertex="1" parent="1">
           <mxGeometry x="-67.5" y="40" width="168" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="kUycqnt7xYHu5eqPhcUD-5" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;Routine pipeline: looks for VUS, (likely) PAT in&amp;nbsp;&lt;i style=&quot;text-wrap: nowrap;&quot;&gt;MLH1, MSH2, MSH6, MUTYH, POLE, POLD1&lt;/i&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D0CEE2;" vertex="1" parent="1">
+        <mxCell id="kUycqnt7xYHu5eqPhcUD-5" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;Routine pipeline: analysis of&amp;nbsp;&lt;i style=&quot;text-wrap: nowrap;&quot;&gt;MLH1, MSH2, MSH6, MUTYH, POLE, POLD1&lt;/i&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D0CEE2;" vertex="1" parent="1">
           <mxGeometry x="352.5" y="-10" width="410" height="55" as="geometry" />
         </mxCell>
-        <mxCell id="kUycqnt7xYHu5eqPhcUD-6" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;PMS2_vaR pipeline: indentifies (likely) PAT &lt;i&gt;PMS2 &lt;/i&gt;variants or candidate VUS PMS2 variants&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D0CEE2;" vertex="1" parent="1">
+        <mxCell id="kUycqnt7xYHu5eqPhcUD-6" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;PMS2_vaR pipeline: analysis of &lt;i&gt;PMS2&lt;/i&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D0CEE2;" vertex="1" parent="1">
           <mxGeometry x="352.5" y="60" width="410" height="50" as="geometry" />
         </mxCell>
         <mxCell id="kUycqnt7xYHu5eqPhcUD-7" value="&lt;font style=&quot;font-size: 24px;&quot;&gt;variant&amp;nbsp;&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 24px;&quot;&gt;report&lt;/font&gt;&lt;/div&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#FFF2CC;" vertex="1" parent="1">
@@ -289,7 +289,7 @@
         <mxCell id="kUycqnt7xYHu5eqPhcUD-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="kUycqnt7xYHu5eqPhcUD-13" target="kUycqnt7xYHu5eqPhcUD-4">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="kUycqnt7xYHu5eqPhcUD-13" value="&lt;span style=&quot;font-family: Arial, sans-serif; font-size: 18px; line-height: 19.26px;&quot; lang=&quot;EN-US&quot;&gt;LS suspicion with exclusive PMS2 IHC -&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;font-family: Arial, sans-serif; font-size: 18px;&quot;&gt;&amp;nbsp;sample&lt;/span&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFCCCC;" vertex="1" parent="1">
+        <mxCell id="kUycqnt7xYHu5eqPhcUD-13" value="&lt;span style=&quot;font-family: Arial, sans-serif; font-size: 18px; line-height: 19.26px;&quot; lang=&quot;EN-US&quot;&gt;LS suspicion&lt;/span&gt;&lt;span style=&quot;font-family: Arial, sans-serif; font-size: 18px;&quot;&gt;&amp;nbsp;sample&lt;/span&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFCCCC;" vertex="1" parent="1">
           <mxGeometry x="-88.5" y="-110" width="210" height="90" as="geometry" />
         </mxCell>
         <mxCell id="kUycqnt7xYHu5eqPhcUD-23" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
