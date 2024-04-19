@@ -75,7 +75,7 @@ zip_tabix(output.samples.dir, "*VARDICT.vcf$")
 message("convert to txt file")
 convert_vcf_txt(resultsDir = output.samples.dir, vcf.pattern = "*VARDICT.vcf.gz$", rng, args)
 message("merge pipelines")
-merge_pipelines(resultsDir = output.samples.dir, vars.paralogous=vars.paralogous, classification=classification)
+merge_pipelines(resultsDir = output.samples.dir, vars.paralogous=vars.paralogous, classification=classification, args=args)
 
 
 
