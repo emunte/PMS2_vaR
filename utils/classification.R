@@ -36,7 +36,7 @@ classification <- list(ben = ben,
 
 
 # Paralogous variant list
-vars.paralogous <- read.csv("./data/variants_pms2CL.csv", header = FALSE) %>% as.matrix()
+vars.paralogous <- read.csv("./data/variants_pms2CL.csv", header = TRUE, sep="\t")
 
 # BEd
 bed.file <-  read.csv2(ifelse(args$genome == "hg19", "./data/PMS2_bed_file.bed", "./data/PMS2_bed_file_hg38.bed"), sep="\t", header = TRUE)
