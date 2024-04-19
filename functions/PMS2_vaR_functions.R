@@ -90,7 +90,7 @@ pms2_realignment <- function(args, tools, vardict, output.samples.dir){
                   "-f", (vardict$freq),
                   "-N", sample.name,
                   "-b ", paste0(sorted.bam, ".bam"),
-                  "-R", range.position, " | ",
+                  "-R", range.position," | ",
                   paste0(tools$vardict , "/bin/teststrandbias.R | "),
                   paste0(tools$vardict, "/bin/var2vcf_valid.pl"),
                   "-N", sample.name,
@@ -264,7 +264,7 @@ samples.name <- basename(files) %>% stringr::str_replace("freq.+", "")
   }
 }
 
-merge_pipelines <- function(resultsDir, vars.paralogous, classification = classification){
+merge_pipelines <- function(resultsDir, vars.paralogous, classification = classification, args = args){
   samples <- list.dirs(resultsDir, recursive = FALSE)
   print(resultsDir)
   final.results <- file.path(resultsDir, "final_results")
@@ -296,7 +296,7 @@ for (j in seq_len(length(samples))){
                     INROI = ifelse(is.na(INROI.x), INROI.y, INROI.x)) %>%
       dplyr::select(-REF.x, - REF.y, -POS.x, -POS.y, -TYPE.x, -TYPE.y, -exon.x, -exon.y)
 
-    all.variants.final <- cdnav2(dataset = both2, vars.paralogous = vars.paralogous, classification ) %>%
+    all.variants.final <- cdnav2(dataset = both2, vars.paralogous = vars.paralogous, classification, args) %>%
       dplyr::relocate (cdna, prot, class_paralogous, paralogous_above60, class)
     all.variants.final.2 <- filter_variants(all.variants.final)
     write.table(all.variants.final.2, file.path(final.results, paste0(basename(samples)[j], "_PMS2_variants.txt")), sep="\t", row.names=FALSE, col.names=TRUE, quote=FALSE)
