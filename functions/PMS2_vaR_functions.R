@@ -312,7 +312,7 @@ cdnav2 <- function (dataset, vars.paralogous, classification, args){
     dplyr::mutate(ALT = ifelse(ALT=="<DUP>", paste0(REF, REF), ALT)) %>%
     dplyr::mutate(variant = ifelse(str_length(REF)==1,
                                    paste0(NC, "%3Ag.", POS, REF,">", ALT),
-                                   paste0(NC, "%3Ag.",as.numeric(POS+1),"_",as.numeric(POS+str_length(REF)-1), "del", str_sub(REF,2, -1)))) %>%
+                                   paste0(NC, "%3Ag.", as.numeric(POS+1),"_",as.numeric(POS+str_length(REF)-1), "del", str_sub(REF,2, -1)))) %>%
     dplyr::mutate (variant = ifelse(str_length(ALT)==1,
                                     variant,
                                     paste0(NC,"%3Ag.",as.numeric(POS), "_",as.numeric(POS+1), "ins", str_sub(ALT,2, -1)))) %>%
@@ -357,14 +357,30 @@ cdnav2 <- function (dataset, vars.paralogous, classification, args){
   ## Present or not in both pipelines
   ## Split cdna and prot into different variables
   ## Determine if paralogous and >60
+
+  if (args$genome == "hg19") {
+    vars.par <- vars.paralogous$ID.hg19
+    vars.ben <- classification$ben$ID.vars
+    vars.vus <- classification$vus$ID.vars
+    vars.pat <- classification$pat$ID.vars
+    vars.lpat <- classification$lpat$ID.vars
+    vars.lben <- classification$lben$ID.vars
+  } else {
+    vars.par <- vars.paralogous$ID.hg38
+    vars.ben <- classification$ben$ID.vars.hg38
+    vars.vus <- classification$vus$ID.vars.hg38
+    vars.pat <- classification$pat$ID.vars.hg38
+    vars.lpat <- classification$lpat$ID.vars.hg38
+    vars.lben <- classification$lben$ID.vars.hg38
+  }
   final.file <- final.file %>%
     dplyr::rowwise() %>%
-    dplyr::mutate(class_paralogous= ifelse(ID %in% vars.paralogous, "paralogous",""),
-                  class=ifelse(ID %in% ifelse(args$genome=="hg19", classification$ben$ID.vars, classification$ben$ID.vars.hg38), "BEN", "Not found"),
-                  class=ifelse(ID %in% ifelse(args$genome=="hg19", classification$vus$ID.vars, classification$vus$ID.vars.hg38), "VUS", class),
-                  class=ifelse(ID %in% ifelse(args$genome=="hg19", classification$pat$ID.vars, classification$pat$ID.vars.hg38), "PAT", class),
-                  class=ifelse(ID %in% ifelse(args$genome=="hg19", classification$lpat$ID.vars, classification$lpat$ID.vars.hg38), "lPAT", class),
-                  class=ifelse(ID %in% ifelse(args$genome=="hg19", classification$lben$ID.vars, classification$lben$ID.vars.hg38),"lBEN", class),
+    dplyr::mutate(class_paralogous= ifelse(ID %in% vars.par, "paralogous",""),
+                  class = ifelse(ID %in% vars.ben, "BEN", "Not found"),
+                  class = ifelse(ID %in% vars.vus, "VUS", class),
+                  class = ifelse(ID %in% vars.pat, "PAT", class),
+                  class = ifelse(ID %in% vars.lpat, "lPAT", class),
+                  class = ifelse(ID %in% vars.lben, "lBEN", class),
                   present_pipelines = ifelse(is.na(AF.y),
                                              "general",
                                              ifelse(is.na(AF.x),
