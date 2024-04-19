@@ -1,5 +1,5 @@
 #VardictJava params
-freq: 10 #The threshold for allele frequency,
+freq: 0.1 #The threshold for allele frequency,
 missmatches: 10 #-m INT If set, reads with mismatches more than INT will be filtered and ignored.
 phred_score: 15 #-q double The phred score for a base to be considered a good call.
 k: 0 #local realignment Default 1 (yes). Set to 0 to disable it.
