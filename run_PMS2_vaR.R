@@ -19,7 +19,7 @@ library(Rsamtools)
 # Check run_PMS2_vaR.R is being called from PMS2_vaR folder
 
 if (length(list.files(pattern = "run_PMS2_vaR.R"))== 0){
-  cat("Sorry, runPMS2_vaR.R .R should be called from PMS2_vaR.R  folder\n")
+  cat("Sorry, run_PMS2_vaR.R .R should be called from PMS2_vaR.R  folder\n")
   quit()
 }
 
