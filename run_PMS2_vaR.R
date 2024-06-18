@@ -1,5 +1,5 @@
 # Description: Run the PMS2_vaR pipeline
-# USAGE: Rscript runPMS2_vaR.R [-t tools_file] [-b bamTxt_file] [-r reference_bam_file] [-g genome_assembly] [-v vardictJava_params] [-o outputdir] [-n folder_name]
+# USAGE: Rscript run_PMS2_vaR.R [-t tools_file] [-b bamTxt_file] [-r reference_bam_file] [-g genome_assembly] [-v vardictJava_params] [-o outputdir] [-n folder_name]
 
 #libs
 library(yaml)
@@ -16,9 +16,9 @@ library(VariantAnnotation)
 library(stringr)
 library(purrr)
 library(Rsamtools)
-# Check runPMS2_vaR.R is being called from PMS2_vaR folder
+# Check run_PMS2_vaR.R is being called from PMS2_vaR folder
 
-if (length(list.files(pattern = "runPMS2_vaR.R"))== 0){
+if (length(list.files(pattern = "run_PMS2_vaR.R"))== 0){
   cat("Sorry, runPMS2_vaR.R .R should be called from PMS2_vaR.R  folder\n")
   quit()
 }
