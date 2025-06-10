@@ -1,6 +1,6 @@
 # Description: Run the PMS2_vaR pipeline
 # USAGE: Rscript run_PMS2_vaR.R [-t tools_file] [-b bamTxt_file] [-r reference_bam_file] [-g genome_assembly] [-v vardictJava_params] [-o outputdir] [-n folder_name]
-
+message(Sys.time())
 #libs
 library(yaml)
 library("optparse")
@@ -78,7 +78,7 @@ message("merge pipelines")
 merge_pipelines(resultsDir = output.samples.dir, vars.paralogous=vars.paralogous, classification=classification, args=args)
 
 
-
+message(Sys.time())
 
 
 
