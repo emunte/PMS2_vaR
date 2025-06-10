@@ -343,7 +343,17 @@ cdnav2 <- function (dataset, vars.paralogous, classification, args){
             which()
           if(length(number)>0){
             final.file$cdna[i] <-  unlist(mut$equivalent_descriptions$c[[number]][1])
-            final.file$prot[i] <- unlist(mut$equivalent_descriptions$c[[number]][2])}
+            #final.file$prot[i] <- unlist(mut$equivalent_descriptions$c[[number]][2])
+            mut2 <- NA
+            mut2 <- try(jsonlite::read_json(paste0(server_mutalyzerv3,final.file$cdna[i])))
+            if(!is.null(mut2$protein$description)){
+            final.file$prot[i] <- mut2$protein$description
+            }else{
+              final.file$prot[i] <- "NP_000526.2:p.?"
+            }
+
+
+            }
 
         }else{
 
